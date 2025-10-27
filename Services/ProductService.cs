@@ -6,6 +6,7 @@ using MySql.Data.MySqlClient;
 using System.Data;
 using Dapper;
 using CSharpService.Models;
+using System.Data.Common;
 
 public class ProductService : IProductService
 {
@@ -30,6 +31,13 @@ public class ProductService : IProductService
         return _context.Products.ToList();
     }
 
+    private static T? GetNullable<T>(DbDataReader reader, string column)
+    {
+        int ord = reader.GetOrdinal(column);
+        if (reader.IsDBNull(ord)) return default;
+        return (T)reader.GetValue(ord);
+    }
+
     public async Task<List<Product>> GetProductsSql(IConfiguration configuration)
     {
         // We must use the same connection
@@ -41,9 +49,25 @@ public class ProductService : IProductService
         var products = new List<Product>();
         while (await reader.ReadAsync())
         {
+
             products.Add(new Product
             {
-                Id = reader.GetInt32(0)
+                Id = reader.GetInt64(reader.GetOrdinal("Id")),
+                BrandId = reader.IsDBNull(reader.GetOrdinal("BrandId")) ? null : reader.GetInt64(reader.GetOrdinal("BrandId")),
+                ProductCategoryId = reader.IsDBNull(reader.GetOrdinal("ProductCategoryId")) ? null : reader.GetInt64(reader.GetOrdinal("ProductCategoryId")),
+                TaxId = reader.IsDBNull(reader.GetOrdinal("TaxId")) ? null : reader.GetInt64(reader.GetOrdinal("TaxId")),
+                StockType = reader.GetInt32(reader.GetOrdinal("StockType")),
+                Stock = GetNullable<ushort>(reader, "Stock"),
+                CurrencyCode = reader.GetString(reader.GetOrdinal("CurrencyCode")),
+                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                IsPrepackedItem = reader.GetBoolean(reader.GetOrdinal("IsPrepackedItem")),
+                IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive")),
+                PackagingPrice = reader.GetDecimal(reader.GetOrdinal("PackagingPrice")),
+                Calories = reader.IsDBNull(reader.GetOrdinal("Calories")) ? null : GetNullable<ushort>(reader, "Calories"),
+                SKU = reader.IsDBNull(reader.GetOrdinal("SKU")) ? null : reader.GetString(reader.GetOrdinal("SKU")),
+                DeletedAt = reader.IsDBNull(reader.GetOrdinal("DeletedAt")) ? null : reader.GetDateTime(reader.GetOrdinal("DeletedAt")),
+                CreatedAt = reader.IsDBNull(reader.GetOrdinal("CreatedAt")) ? null : reader.GetDateTime(reader.GetOrdinal("CreatedAt")),
+                UpdatedAt = reader.IsDBNull(reader.GetOrdinal("UpdatedAt")) ? null : reader.GetDateTime(reader.GetOrdinal("UpdatedAt")),
             });
         }
 

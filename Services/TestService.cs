@@ -7,9 +7,8 @@ public class TestService : ITestService
         long sum = 0;
         for (int i = 1; i <= count; i++)
         {
-            sum += i;       // toplama
-            sum -= (i / 2); // çıkarma
-            sum *= 1;       // çarpma (örnek)
+            sum += i;
+            sum -= (i / 2);
         }
         return sum;
     }

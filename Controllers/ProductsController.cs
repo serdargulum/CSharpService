@@ -10,27 +10,27 @@ using CSharpService.Models;
 public class ProductsController(IProductService productService) : ControllerBase
 {
     [HttpGet("async")]
-    public async Task<IEnumerable<Product>> GetAsync()
+    public async Task<IActionResult> GetAsync()
     {
-        return await productService.GetProductsAsync();
+        return Ok(await productService.GetProductsAsync());
     }
 
     [HttpGet]
-    public List<Product> Get()
+    public IActionResult Get()
     {
-        return productService.GetProducts();
+        return Ok(productService.GetProducts());
     }
 
     [HttpGet("sql")]
-    public async Task<List<Product>> GetBySql(IConfiguration configuration)
+    public async Task<IActionResult> GetBySql(IConfiguration configuration)
     {
-        return await productService.GetProductsSql(configuration);
+        return Ok(await productService.GetProductsSql(configuration));
     }
 
     [HttpGet("dapper")]
-    public async Task<List<Product>> GetDapper(IConfiguration configuration)
+    public async Task<IActionResult> GetDapper(IConfiguration configuration)
     {
-        return await productService.GetProductsDapperAsync(configuration);
+        return Ok(await productService.GetProductsDapperAsync(configuration));
     }
 
 }
