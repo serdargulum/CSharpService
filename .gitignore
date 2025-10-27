@@ -1,0 +1,28 @@
+# Build directories
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+*.vs/
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# Visual Studio Code
+.vscode/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+.nuget/
+
+# Logs
+*.log
+
+# Publish output
+publish/
+    
