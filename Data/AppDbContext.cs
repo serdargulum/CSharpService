@@ -1,8 +1,8 @@
 namespace CSharpService.Data;
 
-// Data/AppDbContext.cs
-using Microsoft.EntityFrameworkCore;
 
+using Microsoft.EntityFrameworkCore;
+using CSharpService.Models;
 public class AppDbContext : DbContext
 {
     public DbSet<Product> Products { get; set; }
