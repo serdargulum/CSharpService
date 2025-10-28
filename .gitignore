@@ -27,3 +27,4 @@ obj/
 publish/
 
 appsettings.json
+appsettings.Development.json
