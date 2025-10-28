@@ -25,4 +25,5 @@ obj/
 
 # Publish output
 publish/
-    
+
+appsettings.json
