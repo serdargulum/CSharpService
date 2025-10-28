@@ -1,17 +1,16 @@
-# Build directories
 bin/
 obj/
-
-# User-specific files
 *.user
 *.suo
-*.userprefs
 *.vs/
-
-# Rider / JetBrains
-.idea/
-*.sln.iml
-
+.vscode/
+appsettings.Development.json
+appsettings.Local.json
+appsettings.json
+*.db
+*.log
+ 
+*.userprefs
 # Visual Studio Code
 .vscode/
 
@@ -20,11 +19,5 @@ obj/
 *.snupkg
 .nuget/
 
-# Logs
-*.log
-
 # Publish output
 publish/
-
-appsettings.json
-appsettings.Development.json
